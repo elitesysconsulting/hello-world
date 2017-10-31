@@ -1,0 +1,18 @@
+
+purge_tmp.sh
+#!/bin/bash
+find /tmp -mtime +7 -type d -exec rmdir {} \;
+find /tmp -mtime +7 -type f -exec rm {} \;
+
+ou
+DOSSIER=/tmp
+find $DOSSIER -mtime +7 -type f -exec rm {} \; ; find $DOSSIER -mtime +7 -type d -exec rmdir {} \;
+
+
+Automatisation
+$ vi /usr/local/bin/purge_tmp.sh
+find /tmp -mtime +0 -delete
+
+$ chmod +x /usr/local/bin/purge_tmp.sh
+$ crontab -e
+0 0 * * * /usr/local/bin/purge_tmp.sh
