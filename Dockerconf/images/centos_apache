@@ -1,0 +1,19 @@
+FROM Centos
+
+MAINTAINER Elitesys_test
+
+RUN yum update && yum install http && yum clean
+
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+
+EXPOSE 80
+
+# Enable proxy and proxy_http mod
+RUN a2enmod proxy proxy_http
+
+# Update the default apache site with the config we created.
+ADD apache-config.conf /etc/apache2/sites-enabled/000-default.conf
+
+CMD apache2ctl restart
+CMD apache2ctl -D FOREGROUND
